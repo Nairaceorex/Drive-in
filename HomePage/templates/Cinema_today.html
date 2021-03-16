@@ -1,0 +1,30 @@
+{% extends "template.html" %}
+{% load static %}
+
+    {% block title %}Сегодня в кино{% endblock title %}
+
+{% block content %}
+
+
+{% for row in Data %}
+<div class="container" style="text-align: center;
+font-family : Lucida Calligraphy;
+font-size: 20px; color: #522c00; margin-top:5%; margin-bottom:5% ">
+<div class="row">
+{% for film in row %}
+<div class="col-sm">
+<div class="card" style="background: #FFDAB9">
+<img src="{{ film.Icon.url }}" class="card-img-top">
+<div class="card-body">
+<h5 class="card-title">{{ film.Name }}</h5>
+    <p class="card-text">{{ film.Genre }}</p>
+    <p class="card-text">{{ film.Year }}</p>
+<p class="card-text">{{ film.Description }}</p>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endfor %}
+{% endblock content %}

@@ -1,14 +1,19 @@
+{% extends "template.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
-</head>
-<body>
-<h1 class="display-1">hello world</h1>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
-</body>
-</html>
+
+    {% block title %}Главная{% endblock title %}
+
+{% block content %}
+<div class="container" style="margin-bottom:2% ;">
+  <div class="row" style="height: 550px">
+    <div class="col-4" style="background-color: #fff">
+      <h1 class="display-4" align="center"><b>«Yellow Shark»: рады вам всегда</b></h1>
+      <p align="center" class="">Работаем с 2000 года</p>
+      <p class="" align="center">Пора немного поностальгировать. Наш самобытный Кинотеатр в формате drive-in дарит возможность смотреть кино всей семьей из уютного салона вашего автомобиля или разместиться на покрывале и наслаждаться фильмами под открытым небом. Располагайтесь поудобнее и получайте удовольствие от «поездки».</p>
+    </div>
+    <div class="col-8">
+      <img class="img-fluid img-thumbnail" src="{% static "img/background.png" %}">
+    </div>
+  </div>
+</div>
+{% endblock content %}
