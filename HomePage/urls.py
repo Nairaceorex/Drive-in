@@ -6,5 +6,7 @@ urlpatterns = [
 path("today", views.today, name='today'),
 path("film", views.film, name='film'),
 path("Contact", views.Contact, name='Contact'),
+path('cart',views.cart,name='cart'),
+    path("theFilm\<int:id>",views.theFilm, name='theFilm')
 ]
 

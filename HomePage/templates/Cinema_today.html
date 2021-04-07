@@ -6,25 +6,22 @@
 {% block content %}
 
 
-{% for row in Data %}
-<div class="container" style="text-align: center;
-font-family : Lucida Calligraphy;
-font-size: 20px; color: #522c00; margin-top:5%; margin-bottom:5% ">
-<div class="row">
-{% for film in row %}
-<div class="col-sm">
-<div class="card" style="background: #FFDAB9">
+<div class="row row-cols-1 row-cols-md-3" >
+{% for film in Data %}
+<div class="col mb-4">
+<div class="card text-white bg-dark h-100">
 <img src="{{ film.Icon.url }}" class="card-img-top">
 <div class="card-body">
 <h5 class="card-title">{{ film.Name }}</h5>
     <p class="card-text">{{ film.Genre }}</p>
     <p class="card-text">{{ film.Year }}</p>
-<p class="card-text">{{ film.Description }}</p>
+
+</div>
+<div class="card-footer" align="right">
+<a href="{{ news.get_absolute_url}}" class="btn btn-warning">Перейти</a>
 </div>
 </div>
 </div>
 {% endfor %}
 </div>
-</div>
-{% endfor %}
 {% endblock content %}

@@ -41,7 +41,7 @@
             Dropdown
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="{% url "HomePage:cart" %}">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
@@ -65,7 +65,7 @@
 {% endblock content %}
 
 
-<footer>
+<footer class="mt-auto text-white-50">
   <div class="container">
     <div class="row">
     <div class="col-sm">
