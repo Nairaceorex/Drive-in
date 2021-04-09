@@ -13,7 +13,10 @@
     }
   </style>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img class="w-50" src="{% static "img/v4.png" %}"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,20 +36,16 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url "HomePage:Contact" %}">Контакты и расположение</a>
         </li>
-
-
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><a class="dropdown-item" href="{% url "HomePage:cart" %}">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+        <li class="nav-item">
+          <button type="button" class="btn btn-outline-light btn-md" data-bs-toggle="modal" data-bs-target="#LoginModal">
+            Войти
+          </button>
+          <button class="btn btn-outline-light btn-md" onclick="window.location.href = '{% url "Client:reg" %}';">
+            Зарегистрироваться
+          </button>
         </li>
-      </ul>
+
+
 
 
     </div>
@@ -54,12 +53,28 @@
 
   </div>
 </nav>
-</head>
-<body>
-
 
    <br>
-
+<form method="post" action="{% url "Client:login" %}">
+{% csrf_token %}
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
 {% block content %}
 
 {% endblock content %}

@@ -19,7 +19,7 @@ class AllFilm(models.Model):
     Genre = models.CharField(max_length=50, verbose_name='Жанр')
     Icon = models.ImageField(verbose_name='Иконка')
     Video=models.TextField(verbose_name='Ссылка',null=True)
-
+    price=models.IntegerField(verbose_name='Цена',null=True)
     def __str__(self):
         return self.Name
 

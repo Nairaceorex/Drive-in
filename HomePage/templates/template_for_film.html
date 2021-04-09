@@ -5,34 +5,6 @@
     {% block title %}{{ film.Name }}{% endblock title %}
 
 {% block content %}
-<!--<div width="400" height="600" align="center">
-    <h1>{{ film.Name }}</h1>
-    <img src="{{ film.Icon.url }}" width="500px" height="800px" align="left">
-    <div align="right" width="300px" height=500px" style="text-color:white;">
-        <div align="left">
-            <p class="fs-5" align="center"> {{ film.Genre }}</p>
-            <p class="fs-5" align="center">{{ film.Year }}</p>
-        </div>
-
-        <p align="right">{{ film.Description }}</p>
-
-    </div>
-</div-->
-
-<!--div class="container" style="margin-bottom:2% ;">
-  <div class="row" style="height: 550px">
-    <div class="col-4" style="background-color: #fff">
-     <img class="img-fluid img-thumbnail" src="{{ film.Icon.url }}">
-    </div>
-    <div class="col-8">
-
-         <h1 class="display-4" align="right"><b>{{ film.Name }}</b></h1>
-        <p class="fs-5" align="right">{{ film.Year }}</p>
-        <p class="fs-5" align="left"> {{ film.Genre }}</p>
-        <p align="right">{{ film.Description }}</p>
-    </div>
-  </div>
-</div-->
 
 <div class="card text-white bg-dark mb-3" >
   <div class="row g-0">
@@ -43,15 +15,7 @@
           <p align="left" class="fs-5" class="card-text">Жанр: {{ film.Genre }}</p>
           <hr>
 
-        <form action="{% url "cart:cart_add" product.id %}" method="post">
-{{ cart_product_form }}
-{% csrf_token %}
-<div class="row">
-<div class="col-sm">
-{{forms.quantity}}</div>
-<div class="col-sm">
-<input type="submit" value="Положить в корзину" style="background:#1A153F;color:#FBCEB1; border-radius: 10px; border-color:#FBCEB1"></div></div>
-</form>
+
 
       </div>
 
@@ -79,14 +43,7 @@
 
 </div>
 
-<!--div class="card mb-3">
-  <img src="{{ film.Icon.url }}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Заголовок карточки</h5>
-    <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту. Этот контент немного длиннее.</p>
-    <p class="card-text"><small class="text-muted">Последнее обновление 3 мин. назад</small></p>
-  </div>
-</div-->
+
 
 
 
