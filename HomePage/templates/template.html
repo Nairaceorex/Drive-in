@@ -36,14 +36,27 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url "HomePage:Contact" %}">Контакты и расположение</a>
         </li>
+        {% if 'id' in request.session %}
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{request.session.name}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url "Client:profile" %}">Профиль</a></li>
+            <li><a class="dropdown-item" href="{% url "Client:logout" %}">Выход</a></li>
+          </ul>
+        </li>
+        {% else %}
         <li class="nav-item">
-          <button type="button" class="btn btn-outline-light btn-md" data-bs-toggle="modal" data-bs-target="#LoginModal">
-            Войти
+          <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Войти
           </button>
           <button class="btn btn-outline-light btn-md" onclick="window.location.href = '{% url "Client:reg" %}';">
             Зарегистрироваться
           </button>
         </li>
+        {% endif %}
 
 
 
@@ -55,22 +68,38 @@
 </nav>
 
    <br>
-<form method="post" action="{% url "Client:login" %}">
-{% csrf_token %}
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<form method="post" action="{% url "Client:login" %}">{% csrf_token %}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Вход</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+          <div class="form-group row" >
+            <div class="col-sm-10">
+              {{login.EmailLogin.label_tag}}
+              {{login.EmailLogin}}
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              {{login.PasswordLogin.label_tag}}
+              {{login.PasswordLogin}}
+            </div>
+          </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="submit" class="btn btn-primary">Войти</button>
       </div>
+
     </div>
   </div>
 </div>
@@ -102,6 +131,9 @@ font-size: 20px; color: yellow;">
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
 
+{% block script %}
+
+{% endblock script %}
 
 
 </html>

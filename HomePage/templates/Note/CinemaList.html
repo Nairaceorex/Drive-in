@@ -1,0 +1,22 @@
+{% for Cinema in Data %}
+<a href="#" onclick="getdate({{ Cinema.id }})">{{Cinema.Name}}</a>
+<br>
+{% endfor %}
+<script>
+    function getdate(id)
+    {
+        $.ajax({
+                data: {'id': id}, // get the form data
+                url: "{% url 'HomePage:getdate' %}",
+                // on success
+                success: function (response) {
+                        $(".list").html(response)
+                $('.modal-dialog').addClass( "modal-xl" );
+                },
+                // on error
+                error: function (response) {
+                    console.log(response.responseJSON.errors)
+                }
+            });
+    }
+</script>

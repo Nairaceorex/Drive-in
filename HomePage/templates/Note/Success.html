@@ -1,0 +1,31 @@
+<h5>Проверьте, верны ли данные!</h5>
+Фильм: {{ Film.Name }}
+<br>
+Кинотеатр: {{ Cinema.Name }}
+<br>
+Дата: {{ Date }}
+<br>
+Время: {{ Time }}
+<br>
+Место: №{{ Place }}
+<br>
+<button class="btn btn-warning" onclick="successed()">Подтвердить</button>
+<script>
+
+    function successed()
+    {
+        $.ajax({
+
+                url: "{% url 'HomePage:successed' %}",
+                // on success
+                success: function (response) {
+                        $(".list").html(response)
+
+                },
+                // on error
+                error: function (response) {
+                    console.log(response.responseJSON.errors)
+                }
+            });
+    }
+</script>

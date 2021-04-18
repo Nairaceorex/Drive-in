@@ -1,0 +1,32 @@
+<div class="row row-cols-1 row-cols-md-6 g-4 justify-content-center">
+    {% for seat in Data.placedata %}
+        {% if seat %}
+            <div class="col ">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Место №{{ forloop.counter }}</h5>
+ <button class="btn btn-warning" onclick="successticket({{ forloop.counter }})">Забронировать это место</button>
+      </div>
+    </div>
+  </div>
+        {% endif %}
+    {% endfor %}
+</div>
+<script>
+    function successticket(place)
+    {
+        $.ajax({
+                data: {'place': place}, // get the form data
+                url: "{% url 'HomePage:successticket' %}",
+                // on success
+                success: function (response) {
+                        $(".list").html(response)
+
+                },
+                // on error
+                error: function (response) {
+                    console.log(response.responseJSON.errors)
+                }
+            });
+    }
+</script>

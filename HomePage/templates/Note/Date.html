@@ -1,0 +1,39 @@
+<h1>Расписание</h1>
+{% for day in Data.GetSchedule %}
+    <div class="card" >
+<div class="card-header">
+    {{day.date}}
+  </div>
+  <div class="card-body">
+    <div class="card-group">
+{% for time in day.schedule %}
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{time}}</h5>
+      <p class="card-text">доступных мест: 50</p>
+<button class="btn btn-warning" onclick="getplace({{ forloop.parentloop.counter }}, {{ forloop.counter }})">выбрать эту дату</button>
+    </div>
+  </div>
+{% endfor %}
+</div>
+  </div>
+</div>
+{% endfor %}
+<script>
+    function getplace(date,time)
+    {
+        $.ajax({
+                data: {'date': date,'time': time}, // get the form data
+                url: "{% url 'HomePage:getplace' %}",
+                // on success
+                success: function (response) {
+                        $(".list").html(response)
+
+                },
+                // on error
+                error: function (response) {
+                    console.log(response.responseJSON.errors)
+                }
+            });
+    }
+</script>

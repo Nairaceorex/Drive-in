@@ -3,7 +3,7 @@ from .models import AllFilm
 
 @admin.register(AllFilm)
 class AllFilmAdmin(admin.ModelAdmin):
-    list_display = ['Key_Film','Icon', 'Name', 'Year', 'Genre','price', 'Description','Video']
+    list_display = ['Key_Film','Icon', 'Name', 'Year', 'Genre','Mark','price']
     search_fields = ['Name', 'Key_Film']
 
 # Register your models here.

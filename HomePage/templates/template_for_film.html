@@ -10,41 +10,61 @@
   <div class="row g-0">
     <div class="col-md-4" >
       <div class="card-body" align="left">
-        <h1 align="left" class="display-5" class="card-title">{{ film.Name }}</h1>
-          <p align="left" class="fs-5" class="card-text">Год: {{ film.Year }}</p>
-          <p align="left" class="fs-5" class="card-text">Жанр: {{ film.Genre }}</p>
-          <hr>
-
-
-
+                <h1>{{ film.Name }}</h1>
       </div>
-
-
+          <p align="left" class="fs-5" class="card-text"> Год: {{ film.Year }}</p>
+          <p align="left" class="fs-5" class="card-text"> Жанр: {{ film.Genre }}</p>
+            <button class="btn btn-warning" onclick="Pay({{ film.Key_Film }})">Купить</button>
+      </div>
     </div>
 
 <div align="center" class="row-g-0">
-
         {{ film.Video|safe }}
       </div>
-
-      <div align="right" class="col-md-5">
+<div class="row">
+      <div align="right" class="col">
         <br>
         <p align="left" class="fs-3" class="card-text">О фильме: </p>
         <p align="center" class="fs-4" class="card-text">{{ film.Description }}</p>
+      </div>
+    <div align="right" class="col">
+        <br>
+        <p align="left" class="fs-3" class="card-text">Оценка: {{ film.Mark }}</p>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Купить билет</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body list">
 
       </div>
 
     </div>
-    <div align="right" class="col-md-5">
-        <br>
-        <p align="left" class="fs-3" class="card-text">Оценка: </p>
-      fgfhgefhehtehghg
-      </div>
-
+  </div>
 </div>
-
-
-
-
-
 {% endblock content %}
+{% block script %}
+<script>
+    function Pay(id)
+    {
+        $.ajax({
+                data: {'id': id}, // get the form data
+                url: "{% url 'HomePage:GetCinema' %}",
+                // on success
+                success: function (response) {
+                        $(".list").html(response)
+                        $("#staticBackdrop").modal('show')
+                },
+                // on error
+                error: function (response) {
+                    console.log(response.responseJSON.errors)
+                }
+            });
+    }
+</script>
+{% endblock %}
