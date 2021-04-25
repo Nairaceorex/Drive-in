@@ -1,6 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+
 from  .forms import RegForm
-from .models import Account
+from .models import Account,Ticket
 # Create your views here.
 def reg(request):
     if request.method=="POST":
@@ -43,3 +46,8 @@ def profile(request):
         return render(request, 'profile.html', {'account': acc})
     else:
         return render(request, 'NotLogin.html')
+
+def print(request):
+    ticket=Ticket.objects.get(id=request.GET.get('id'))
+    html=render_to_string('printT.html',{'data':ticket})
+    return HttpResponse(html)

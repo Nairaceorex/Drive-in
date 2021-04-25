@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
@@ -19,7 +21,6 @@ def GetCinema(request):
     request.session['idFilm'] = request.GET.get('id')
 
     cinema = Cinema.objects.all()
-    print('lol')
     html = render_to_string('Note/CinemaList.html', {'Data': cinema})
     return HttpResponse(html)
 
@@ -38,13 +39,27 @@ def today(request):
     return render(request, "Cinema_today.html",{"Data":Data})
 
 def getplace(request):
-
-    request.session['date'] = request.GET.get('date')
-    request.session['time'] = request.GET.get('time')
+    film = AllFilm.objects.get(Key_Film=request.session['idFilm'])
+    day = film.GetSchedule()[int(request.GET.get('date'))]
+    date = day['date']
+    time = day['schedule'][int(request.GET.get('time'))]
+    request.session['date'] = date
+    request.session['time'] = time
     Data=Cinema.objects.get(id=request.session['idCinema'])
+
     Data.placedata=[]
+    DATE = f'{datetime.today().year}-{date.split(".")[1]}-{date.split(".")[0]}'
+    print(DATE)
+    tickets = Ticket.objects.filter(Date__year=datetime.today().year,
+                                    Date__month=date.split(".")[1],
+                                    Date__day=date.split(".")[0],
+                                    Cinema=Data, Film=film, Time=time)
     for i in range(Data.NumSeats):
-        Data.placedata.append(True)
+        try:
+            tickets.get(NumPark=i + 1)
+            Data.placedata.append(False)
+        except:
+            Data.placedata.append(True)
     html=render_to_string('Note/Place.html', {'Data': Data})
     return HttpResponse(html)
 
@@ -58,10 +73,10 @@ def getdate(request):
 def successticket(request):
     idfilm=request.session['idFilm']
     idcinema=request.session['idCinema']
+    film = AllFilm.objects.get(Key_Film=idfilm)
     date=request.session['date']
     time=request.session['time']
     place=request.session['place']=request.GET.get('place')
-    film = AllFilm.objects.get(Key_Film=idfilm)
     cinema= Cinema.objects.get(id=idcinema)
     html = render_to_string('Note/Success.html', {'Film': film,'Place':place,'Date':date,'Time': time,'Cinema':cinema})
 
@@ -70,14 +85,17 @@ def successticket(request):
 def successed(request):
     idfilm = request.session['idFilm']
     idcinema = request.session['idCinema']
-    date = request.session['date']
+    date = request.session['date'].split('.')
     time = request.session['time']
     place = request.session['place']
     account=Account.objects.get(id=request.session['id'])
-
+    today = datetime.today()
     film = AllFilm.objects.get(Key_Film=idfilm)
     cinema = Cinema.objects.get(id=idcinema)
-    newticket=Ticket(Date=date,Time=time,NumPark=place,Cost=film.price,Cinema=cinema,Film=film,FullnameClient=account.Firstname + account.Surname, PhoneNumberClient=account.Phone,EmailClient=account.Email)
+    newticket=Ticket(Date= f'{today.year}-{date[1]}-{date[0]}', Time=time, NumPark=place,
+                     Cost=film.price, Cinema=cinema, Film=film,
+                     FullnameClient=account.Firstname +' '+ account.Surname,
+                     PhoneNumberClient=account.Phone, EmailClient=account.Email)
     newticket.save()
-    html='<h1 aling="center">Спасибо, приятного просмотра!</h1>'
+    html=render_to_string('Note/PrintTicket.html',{'id':newticket.id})
     return HttpResponse(html)

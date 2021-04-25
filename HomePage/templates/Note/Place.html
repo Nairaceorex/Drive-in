@@ -9,6 +9,15 @@
       </div>
     </div>
   </div>
+        {% else %}
+        <div class="col ">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Место №{{ forloop.counter }}</h5>
+         <button class="btn btn-secondary">это место занято</button>
+              </div>
+            </div>
+          </div>
         {% endif %}
     {% endfor %}
 </div>

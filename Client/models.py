@@ -35,5 +35,5 @@ class Ticket(models.Model):
     EmailClient = models.EmailField(verbose_name="Email клиента")
 
     def __str__(self):
-        return self.NumPark
+        return str(self.NumPark)
 

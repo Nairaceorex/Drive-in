@@ -1,0 +1,34 @@
+<h1 aling="center">Спасибо, приятного просмотра!</h1>
+         <br>
+         <button class="btn btn-warning" onclick="print({{ id }})">Распечатать билет</button>
+         <script>
+         function Popup(data)
+    {
+        var mywindow = window.open('', 'my div', 'width='+screen.width+' height='+screen.height);
+        mywindow.document.write('<html><head><title>Электронный билет | Кинотеатр "YellowShark"</title>');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+        mywindow.print();
+        mywindow.close();
+        return true;
+    }
+
+    function print(id)
+  {
+    $.ajax({
+        data: {'id': id}, // get the form data
+        url: "{% url 'Client:print' %}",
+        // on success
+        success: function (response) {
+            Popup(response);
+        },
+        // on error
+        error: function (response) {
+            console.log(response.responseJSON.errors)
+        }
+    });
+  }
+         </script>
